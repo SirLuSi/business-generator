@@ -29,8 +29,7 @@ import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import java.io.Serializable;
 
 /**
- * @author liuzh
- * @since 3.4.5
+ * @author lusi
  */
 public class ColumnField implements Serializable {
 
