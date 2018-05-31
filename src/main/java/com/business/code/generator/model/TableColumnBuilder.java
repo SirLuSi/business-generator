@@ -35,7 +35,6 @@ import java.util.List;
 
 /**
  * @author liuzh
- * @since 3.4.5
  */
 public class TableColumnBuilder {
 
