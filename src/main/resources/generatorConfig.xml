@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--<properties resource="config.properties"/>-->
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="targetJavaProject" value="${targetJavaProject}"/>
+        <property name="basePackage" value="com.demo.business.openapi"/>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.demo.business.openapi.BaseMapper"/>
+        </plugin>
+        <plugin type="com.business.code.generator.ServiceTemplatePlugin">
+            <property name="baseService" value="com.demo.business.openapi.BaseService" />
+        </plugin>
+        <plugin type="com.business.code.generator.ServiceImplTemplatePlugin">
+            <property name="baseServiceImpl" value="com.demo.business.openapi.BaseServiceImpl" />
+            <property name="isOverride" value="true"/>
+        </plugin>
+        <plugin type="com.business.code.generator.ControllerTemplatePlugin">
+        </plugin>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.0.6:3306/test?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}"/>
+
+        <sqlMapGenerator targetPackage="${targetXMLPackage}" targetProject="${targetResourcesProject}"/>
+
+        <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}"
+                             type="XMLMAPPER"/>
+
+
+        <table tableName="t_user_info" domainObjectName="UserInfoEntity">
+        <generatedKey column="id" sqlStatement="MySql" type="post" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
