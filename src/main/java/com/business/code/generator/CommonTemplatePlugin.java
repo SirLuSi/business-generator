@@ -7,6 +7,8 @@ import com.business.code.generator.formatter.TemplateFormatter;
 import com.business.code.generator.model.TableClass;
 import com.business.code.generator.model.TableColumnBuilder;
 import lombok.Data;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -19,7 +21,6 @@ import org.mybatis.generator.internal.util.StringUtility;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -202,7 +203,7 @@ public class CommonTemplatePlugin extends PluginAdapter {
     @Override
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles() {
         List<GeneratedJavaFile> list = new ArrayList<GeneratedJavaFile>();
-        if (cacheTables != null && cacheTables.size() > 0) {
+        if (CollectionUtils.isNotEmpty(cacheTables)) {
             list.add(new GenerateByListTemplateFile(cacheTables, (ListTemplateFormatter) templateFormatter, properties, targetProject, targetPackage, fileName, templateContent));
         }
         return list;
@@ -233,7 +234,7 @@ public class CommonTemplatePlugin extends PluginAdapter {
 
     private void copyPeoperties(Properties sourceProperties, Properties targetProperties) {
         for (Object key : sourceProperties.keySet()) {
-            targetProperties.put((String) key, sourceProperties.getProperty((String) key));
+            targetProperties.put( key, sourceProperties.getProperty((String) key));
         }
 
     }
@@ -252,6 +253,17 @@ public class CommonTemplatePlugin extends PluginAdapter {
         if (targetServiceImplPackage == null) {
             properties.put("targetServiceImplPackage", basePackage + ".service.impl");
         }
+    }
+
+    protected boolean isImport(String baseServiceImpl, String targetPackage) {
+
+        System.out.println(baseServiceImpl);
+        System.out.println(targetPackage);
+        String s = StringUtils.trimToEmpty(baseServiceImpl);
+        if(s.substring(0,s.lastIndexOf(".")).equals(targetPackage)){
+            return false;
+        }
+        return true;
     }
 
 

@@ -2,7 +2,9 @@ package ${package};
 
 <#if baseServiceImpl??>
 import ${tableClass.fullClassName};
+<#if isImportBaseServiceImpl>
 import ${baseServiceImpl};
+</#if>
 </#if>
 import ${targetServicePackage}.${tableClass.simpleUpName}Service;
 import org.springframework.stereotype.Service;

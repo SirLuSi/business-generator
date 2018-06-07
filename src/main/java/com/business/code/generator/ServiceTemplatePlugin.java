@@ -20,6 +20,8 @@ public class ServiceTemplatePlugin extends CommonTemplatePlugin {
         setFileName("${tableClass.simpleUpName}"+SUFFIX+".java");
         setTargetPackage(properties.getProperty("targetPackage",
                 properties.getProperty("targetServicePackage", this.getBasePackage() + ".servce")));
+        super.properties.put("isImportBaseService", isImport((String) properties.get("baseService"),getTargetPackage()));
+
     }
 
 
