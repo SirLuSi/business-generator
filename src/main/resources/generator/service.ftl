@@ -2,7 +2,9 @@ package ${package};
 
 <#if baseService??>
 import ${tableClass.fullClassName};
+<#if isImportBaseService>
 import ${baseService};
+</#if>
 </#if>
 /**
 * 通用 service 代码生成器
