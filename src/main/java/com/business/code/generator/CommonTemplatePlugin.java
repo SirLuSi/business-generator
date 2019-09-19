@@ -19,9 +19,17 @@ import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.internal.ObjectFactory;
 import org.mybatis.generator.internal.util.StringUtility;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * @author lusi
@@ -193,7 +201,7 @@ public class CommonTemplatePlugin extends PluginAdapter {
         String ref = getJavaReference(tableClass);
         System.out.println(ref);
         File file = new File(ref);
-        if(!file.exists()){
+        if (!file.exists()) {
             System.out.println("文件不存在!");
             return true;
         }
@@ -234,7 +242,7 @@ public class CommonTemplatePlugin extends PluginAdapter {
 
     private void copyPeoperties(Properties sourceProperties, Properties targetProperties) {
         for (Object key : sourceProperties.keySet()) {
-            targetProperties.put( key, sourceProperties.getProperty((String) key));
+            targetProperties.put(key, sourceProperties.getProperty((String) key));
         }
 
     }
@@ -259,11 +267,7 @@ public class CommonTemplatePlugin extends PluginAdapter {
 
         System.out.println(baseServiceImpl);
         System.out.println(targetPackage);
-        String s = StringUtils.trimToEmpty(baseServiceImpl);
-        if(s.substring(0,s.lastIndexOf(".")).equals(targetPackage)){
-            return false;
-        }
-        return true;
+        return StringUtils.isNotBlank(baseServiceImpl);
     }
 
 
